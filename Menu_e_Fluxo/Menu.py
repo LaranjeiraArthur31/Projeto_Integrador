@@ -1,5 +1,6 @@
 
 import mysql.connector
+from mysql.connector import Error
 
 def obtemConexao(servidor, usuario, senha, bd):
     if obtemConexao.conexao == None:
