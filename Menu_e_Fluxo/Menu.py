@@ -1,25 +1,22 @@
 
 import mysql.connector
 from mysql.connector import Error
+from datetime import datetime
 
 def obtemConexao(servidor, usuario, senha, bd):
-    if obtemConexao.conexao == None:
-        obtemConexao.conexao = mysql.connector.connect(
-            host=servidor,
-            user=usuario,
-            password=senha,
-            database=bd
-        )
-    return obtemConexao.conexao
+    return mysql.connector.connect(
+        host=servidor,
+        user=usuario,
+        password=senha,
+        database=bd
+    )
 
-obtemConexao.conexao = None
-
-SERVIDOR = "localhost"   # ou "bd-acd"
+SERVIDOR = "localhost"
 USUARIO  = "root"
 SENHA    = "senha"
 BD       = "helpdesk"
 
-# ─── MENU ─────────────────────────────────────────────────────────────────────
+#MENU 
 
 def menu():
     print("\n" + "=" * 40)
@@ -34,7 +31,7 @@ def menu():
     print("  0 - Sair")
     print("=" * 40)
 
-# ─── USUÁRIOS ────────────────────────────────────────────────────────────────
+#USUÁRIOS
 
 def cadastrar_usuario():
     nome    = input("Nome: ").strip()
@@ -71,7 +68,7 @@ def listar_usuarios(conn, cursor):
         print(f"  [{u[0]}] {u[1]} <{u[2]}>")
     return usuarios
 
-# ─── CATEGORIAS / PRIORIDADES / STATUS ───────────────────────────────────────
+#CATEGORIAS / PRIORIDADES / STATUS
 
 def listar_opcoes(conn, cursor, tabela, campo="nome"):
     cursor.execute(f"SELECT id, {campo} FROM {tabela} ORDER BY id")
@@ -81,7 +78,7 @@ def listar_opcoes(conn, cursor, tabela, campo="nome"):
         print(f"  [{r[0]}] {r[1]}")
     return rows
 
-# ─── TICKETS ─────────────────────────────────────────────────────────────────
+#TICKETS
 
 def abrir_ticket():
     conn = obtemConexao(SERVIDOR, USUARIO, SENHA, BD)
@@ -111,7 +108,7 @@ def abrir_ticket():
             return
         prio_id = int(input("ID da prioridade: "))
 
-        # Status inicial = 1 (Aberto) — ajuste conforme seu banco
+        # Status inicial = 1 (Aberto) 
         cursor.execute("SELECT id FROM status WHERE nome = 'Aberta' LIMIT 1")
         row = cursor.fetchone()
         status_id = row[0] if row else 1
@@ -210,7 +207,7 @@ def atualizar_status():
             (novo_status_id, agora, ticket_id)
         )
 
-        # Fecha o ticket se status for "Resolvida"
+        # Fecha o ticket
         cursor.execute("SELECT nome FROM status WHERE id=%s", (novo_status_id,))
         nome_status = cursor.fetchone()[0]
         if nome_status.lower() in ("resolvida", "fechada", "encerrada"):
@@ -269,7 +266,7 @@ def ver_historico():
         cursor.close()
         conn.close()
 
-# ─── ESTATÍSTICAS ─────────────────────────────────────────────────────────────
+#ESTATÍSTICAS 
 
 def ver_estatisticas():
     conn = obtemConexao(SERVIDOR, USUARIO, SENHA, BD)
@@ -328,15 +325,11 @@ def ver_estatisticas():
         cursor.close()
         conn.close()
 
-# ─── FECHAR CONEXAO ───────────────────────────────────────────────────────────
-
+#FECHAR CONEXAO
 def fechaConexao():
-    conexao = obtemConexao(SERVIDOR, USUARIO, SENHA, BD)
-    cursor = conexao.cursor()
-    cursor.close()
-    conexao.close()
+    return
 
-# ─── LOOP PRINCIPAL ───────────────────────────────────────────────────────────
+#LOOP PRINCIPAL 
 
 def main():
     while True:
