@@ -1,12 +1,18 @@
 import mysql.connector
-def obtemConexao (servidor, usuario, senha, bd):
-    if obtemConexao.conexao==None:
-        obtemConexao.conexao = mysql.connector.connect(host=f"{servidor}",\
-user=f"{usuario}",\
-password=f"{senha}",\
-database=f"{bd}")
-    return obtemConexao.conexao
-obtemConexao.conexao=None
+from mysql.connector import Error
+
+def obtemConexao(servidor, usuario, senha, bd):
+    return mysql.connector.connect(
+        host=servidor,
+        user=usuario,
+        password=senha,
+        database=bd
+    )
+
+SERVIDOR = 'BD-ACD'
+USUARIO  = "BD24022611"
+SENHA    = "Ldxti2"
+BD       = "BD24022611"
 # regras do sistema
 
 print("1)TI")
@@ -38,7 +44,7 @@ print("Tipo escolhido:", tipo)
 
 print("\nEscolha o status:")
 
-print("1) Aberta(utilizada no início do processo, quando o chamado acabou de ser criado)")
+print("1) Abrir(utilizada no início do processo, quando o chamado acabou de ser criado)")
 print("2) Em andamento(quando o chamado já está sendo analisado pelo suporte)")
 print("3) Fechada(quando o atendimento foi concluído)")
 

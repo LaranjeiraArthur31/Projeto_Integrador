@@ -11,10 +11,10 @@ def obtemConexao(servidor, usuario, senha, bd):
         database=bd
     )
 
-SERVIDOR = "localhost"
-USUARIO  = "root"
-SENHA    = "senha"
-BD       = "helpdesk"
+SERVIDOR = 'BD-ACD'
+USUARIO = "BD24022611"
+SENHA = "Ldxti2"
+BD = "BD24022611"
 
 #MENU 
 
