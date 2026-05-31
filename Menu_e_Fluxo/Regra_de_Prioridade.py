@@ -20,7 +20,6 @@ BD       = "BD24022611"
 
 
 def escolher_opcao_menu(opcoes_dict, titulo):
-    """Exibe um menu e retorna o ID escolhido."""
     print(f"\n--- {titulo} ---")
     for k, v in opcoes_dict.items():
         print(f"  {k}) {v}")
@@ -34,7 +33,6 @@ def escolher_opcao_menu(opcoes_dict, titulo):
             print("Digite apenas números!")
 
 def buscar_opcoes_banco(cursor, tabela, campo="nome"):
-    """Busca opções de uma tabela e retorna dicionário {id: valor}."""
     cursor.execute(f"SELECT id, {campo} FROM {tabela} ORDER BY id")
     rows = cursor.fetchall()
     return {r[0]: r[1] for r in rows}
@@ -62,7 +60,7 @@ def escolher_impacto():
             print("Digite apenas números!")
 
 
-# CALCULO DE PRIORIDADE
+# CÁLCULO DE PRIORIDADE
 
 
 def calcular_prioridade(urgencia, impacto):
@@ -106,7 +104,7 @@ def abrir_chamado():
             return
         categoria_id = escolher_opcao_menu(categorias, "Tipo do problema")
 
-        # Calcula nível de prioridade
+        # Urgência e impacto → calcula nível de prioridade
         urgencia = escolher_urgencia()
         impacto  = escolher_impacto()
         nivel    = calcular_prioridade(urgencia, impacto)
@@ -119,15 +117,37 @@ def abrir_chamado():
             return
         prioridade_id = row[0]
 
-        # Status inicial = Aberta
-        cursor.execute("SELECT id FROM status WHERE nome = 'Aberta' LIMIT 1")
-        row = cursor.fetchone()
-        if not row:
-            print("[ERRO] Status 'Aberta' não encontrado na tabela status.")
+        # Status
+        statuses = buscar_opcoes_banco(cursor, "status")
+        if not statuses:
+            print("Nenhum status cadastrado no banco.")
             return
-        status_id = row[0]
+        print("\n--- Status do chamado ---")
+        print("  (pressione Enter para 'Aberta' automaticamente)")
+        for k, v in statuses.items():
+            print(f"  {k}) {v}")
+        while True:
+            try:
+                entrada = input("Escolha o status (ou Enter para Aberta): ").strip()
+                if entrada == "":
+                    cursor.execute("SELECT id FROM status WHERE nome = 'Aberta' LIMIT 1")
+                    row = cursor.fetchone()
+                    if not row:
+                        print("[ERRO] Status 'Aberta' não encontrado no banco.")
+                        return
+                    status_id   = row[0]
+                    status_nome = "Aberta"
+                    break
+                opcaoS = int(entrada)
+                if opcaoS in statuses:
+                    status_id   = opcaoS
+                    status_nome = statuses[opcaoS]
+                    break
+                print(f"Deve ser entre {min(statuses)} e {max(statuses)}!")
+            except ValueError:
+                print("Digite apenas números!")
 
-        # Resumo
+        # Resumo 
         print("\n" + "=" * 42)
         print("           RESUMO DO CHAMADO")
         print("=" * 42)
@@ -137,7 +157,7 @@ def abrir_chamado():
         print(f"  Categoria....: {categorias[categoria_id]}")
         print(f"  Urgência.....: {urgencia}  |  Impacto: {impacto}")
         print(f"  Prioridade...: {nivel}")
-        print(f"  Status.......: Aberta")
+        print(f"  Status.......: {status_nome}")
         print("=" * 42)
 
         confirma = input("\nConfirmar abertura do chamado? (S/N): ").strip().upper()
@@ -175,9 +195,9 @@ def abrir_chamado():
         cursor.close()
         conn.close()
 
-
+ 
 # PROGRAMA PRINCIPAL
-
+ 
 
 def main():
     print("\n" + "=" * 42)
