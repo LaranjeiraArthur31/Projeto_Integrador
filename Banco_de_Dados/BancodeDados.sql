@@ -1,27 +1,27 @@
 /* sertificar-se se possui database*/
 CREATE TABLE usuarios (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(255),
-    email VARCHAR(255),
-    empresa VARCHAR(255)
+    nome VARCHAR(60),
+    email VARCHAR(60),
+    empresa VARCHAR(60)
 );
 CREATE TABLE categorias (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(255)
+    nome VARCHAR(60)
  );
  CREATE TABLE prioridades (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    nivel VARCHAR(100)
+    nivel VARCHAR(20)
 );
 CREATE TABLE STATUS (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(100)
+    nome VARCHAR(60)
 );
 
  
 CREATE TABLE tickets (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    titulo VARCHAR(255),
+    titulo VARCHAR(60),
     descricao TEXT,
     categoria_id INT,
     prioridade_id INT,
