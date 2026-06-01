@@ -5,7 +5,6 @@ DROP TABLE IF EXISTS prioridades;
 DROP TABLE IF EXISTS status;
 DROP TABLE IF EXISTS usuarios;
 
--- Recriar tudo com status em minúsculo
 CREATE TABLE usuarios (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(60),
