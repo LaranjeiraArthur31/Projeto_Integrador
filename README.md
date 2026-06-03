@@ -1,33 +1,31 @@
+
 # Projeto_Integrador
-================================================================================
-                          SISTEMA HELP DESK - README
-================================================================================
+
+                          SISTEMA HELP DESK: HelpCore - README
+
 
   Versão : 1.0
   Linguagem: Python 3
   Banco de Dados: MySQL
 
-================================================================================
   DESCRIÇÃO DO PROJETO
-================================================================================
+
 
   Sistema de gerenciamento de chamados (Help Desk) desenvolvido em Python com
   banco de dados MySQL. Permite abrir, acompanhar e encerrar tickets de suporte,
   além de calcular a prioridade do chamado automaticamente com base na urgência
   e no impacto informados pelo usuário.
 
-================================================================================
+
   ARQUIVOS DO PROJETO
-================================================================================
 
   BancodeDados.sql         → Script SQL para criação e populacao do banco de dados
   Menu.py                  → Arquivo principal com o menu interativo do sistema
   Regra_de_Prioridade.py   → Módulo de abertura de chamado com cálculo automático
                              de prioridade
 
-================================================================================
+
   ESTRUTURA DO BANCO DE DADOS
-================================================================================
 
   Tabelas:
   --------
@@ -51,9 +49,9 @@
   ticket_historico  → Histórico de atualizações de cada ticket
                       (id, ticket_id, status, comentario, data)
 
-================================================================================
+
   REQUISITOS E INSTALAÇÃO
-================================================================================
+
 
   1. Python 3.8 ou superior instalado
      Download: https://www.python.org/downloads/
@@ -73,9 +71,9 @@
   5. Execute o script SQL para criar o banco:
        mysql -u seu_usuario -p < BancodeDados.sql
 
-================================================================================
+
   COMO EXECUTAR O SISTEMA
-================================================================================
+
 
   Após configurar o banco e instalar as dependências, execute:
 
@@ -83,9 +81,9 @@
 
   O menu principal será exibido no terminal.
 
-================================================================================
-                         TUTORIAL DE USO DO SISTEMA
-================================================================================
+
+ TUTORIAL DE USO DO SISTEMA
+
 
   Ao iniciar o sistema, você verá o menu principal:
 
@@ -101,9 +99,8 @@
       0 - Sair
     ========================================
 
---------------------------------------------------------------------------------
   PASSO 1 — CADASTRAR USUÁRIO (Opção 1)
---------------------------------------------------------------------------------
+
 
   Antes de abrir qualquer ticket, é necessário cadastrar ao menos um usuário.
 
@@ -120,9 +117,9 @@
     Empresa: Empresa XPTO
     ✔ Usuário 'João Silva' cadastrado! (ID 1)
 
---------------------------------------------------------------------------------
+
   PASSO 2 — ABRIR TICKET (Opção 2)
---------------------------------------------------------------------------------
+
 
   Abre um novo chamado de suporte.
 
@@ -167,9 +164,9 @@
       Urgência 2 + Impacto 2 = 4 → Média
       Urgência 3 + Impacto 3 = 6 → Alta
 
---------------------------------------------------------------------------------
+
   PASSO 3 — LISTAR TICKETS (Opção 3)
---------------------------------------------------------------------------------
+
 
   Exibe todos os tickets cadastrados no sistema em formato de tabela.
 
@@ -188,9 +185,9 @@
 
   Os tickets são ordenados do mais recente para o mais antigo (ID decrescente).
 
---------------------------------------------------------------------------------
+
   PASSO 4 — ATUALIZAR STATUS DO TICKET (Opção 4)
---------------------------------------------------------------------------------
+
 
   Altera o status de um ticket existente e registra um comentário no histórico.
 
@@ -216,9 +213,8 @@
     Comentário: Técnico acionado, aguardando peça de reposição.
     ✔ Status do ticket #1 atualizado para 'Em andamento'.
 
---------------------------------------------------------------------------------
   PASSO 5 — VER HISTÓRICO DO TICKET (Opção 5)
---------------------------------------------------------------------------------
+
 
   Exibe todas as movimentações e comentários registrados em um ticket.
 
@@ -234,9 +230,8 @@
       02/06/2025 10:00 | [Fechada] Problema resolvido com sucesso.
     ========================================
 
---------------------------------------------------------------------------------
   PASSO 6 — VER ESTATÍSTICAS (Opção 6)
---------------------------------------------------------------------------------
+
 
   Exibe um resumo geral dos tickets por status, prioridade e categoria.
 
@@ -267,15 +262,14 @@
         Administrativo       1
     ========================================
 
---------------------------------------------------------------------------------
+
   OPÇÃO 0 — SAIR
---------------------------------------------------------------------------------
+
 
   Encerra o sistema com segurança, fechando a conexão com o banco de dados.
 
-================================================================================
   FLUXO RECOMENDADO DE USO
-================================================================================
+
 
   1. Execute o script SQL para criar o banco de dados
   2. Inicie o sistema com: python Menu.py
@@ -285,9 +279,8 @@
   6. Consulte o histórico para rastreabilidade (opção 5)
   7. Monitore as estatísticas periodicamente (opção 6)
 
-================================================================================
   OBSERVAÇÕES IMPORTANTES
-================================================================================
+
 
   - O sistema roda inteiramente no terminal (interface de linha de comando)
   - Certifique-se de que o servidor MySQL está acessível antes de iniciar
@@ -296,4 +289,3 @@
   - O arquivo Regra_de_Prioridade.py pode ser executado de forma independente
     para abrir chamados com cálculo automático de prioridade
 
-================================================================================
