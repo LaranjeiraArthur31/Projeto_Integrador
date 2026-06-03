@@ -1,33 +1,24 @@
 # Projeto_Integrador
-================================================================================
                           SISTEMA HELP DESK - README
-================================================================================
-
   Versão : 1.0
   Linguagem: Python 3
   Banco de Dados: MySQL
-
-================================================================================
+  
   DESCRIÇÃO DO PROJETO
-================================================================================
 
   Sistema de gerenciamento de chamados (Help Desk) desenvolvido em Python com
   banco de dados MySQL. Permite abrir, acompanhar e encerrar tickets de suporte,
   além de calcular a prioridade do chamado automaticamente com base na urgência
   e no impacto informados pelo usuário.
 
-================================================================================
   ARQUIVOS DO PROJETO
-================================================================================
-
+  
   BancodeDados.sql         → Script SQL para criação e populacao do banco de dados
   Menu.py                  → Arquivo principal com o menu interativo do sistema
   Regra_de_Prioridade.py   → Módulo de abertura de chamado com cálculo automático
                              de prioridade
-
-================================================================================
+                             
   ESTRUTURA DO BANCO DE DADOS
-================================================================================
 
   Tabelas:
   --------
@@ -51,9 +42,7 @@
   ticket_historico  → Histórico de atualizações de cada ticket
                       (id, ticket_id, status, comentario, data)
 
-================================================================================
   REQUISITOS E INSTALAÇÃO
-================================================================================
 
   1. Python 3.8 ou superior instalado
      Download: https://www.python.org/downloads/
@@ -73,9 +62,7 @@
   5. Execute o script SQL para criar o banco:
        mysql -u seu_usuario -p < BancodeDados.sql
 
-================================================================================
   COMO EXECUTAR O SISTEMA
-================================================================================
 
   Após configurar o banco e instalar as dependências, execute:
 
@@ -83,9 +70,7 @@
 
   O menu principal será exibido no terminal.
 
-================================================================================
                          TUTORIAL DE USO DO SISTEMA
-================================================================================
 
   Ao iniciar o sistema, você verá o menu principal:
 
