@@ -1,5 +1,10 @@
 
 # Projeto_Integrador
+Grupo 6
+Arthur Lopes Laranjeira - 26002908
+Olavo Belfante Dias - 26008848
+Arthur prevedel Fernandes Nogueira - 26009048
+Davi Vieira Caprini - 26006871
 
                           SISTEMA HELP DESK: HelpCore - README
 
