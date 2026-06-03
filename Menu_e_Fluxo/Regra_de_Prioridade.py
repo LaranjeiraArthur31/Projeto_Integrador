@@ -15,9 +15,7 @@ USUARIO  = "BD24022611"
 SENHA    = "Ldxti2"
 BD       = "BD24022611"
 
-
 # FUNÇÕES AUXILIARES DE ENTRADA
-
 
 def escolher_opcao_menu(opcoes_dict, titulo):
     print(f"\n--- {titulo} ---")
@@ -59,9 +57,7 @@ def escolher_impacto():
         except ValueError:
             print("Digite apenas números!")
 
-
 # CÁLCULO DE PRIORIDADE
-
 
 def calcular_prioridade(urgencia, impacto):
     soma = urgencia + impacto
@@ -73,9 +69,7 @@ def calcular_prioridade(urgencia, impacto):
         nivel = "Alta"
     return nivel
 
-
 # ABERTURA DO CHAMADO
-
 
 def abrir_chamado():
     conn = obtemConexao(SERVIDOR, USUARIO, SENHA, BD)
@@ -89,11 +83,8 @@ def abrir_chamado():
             return
         usuario_id = escolher_opcao_menu(usuarios, "Selecione o usuário")
 
-        # Título e descrição
-        titulo = input("\nTítulo do chamado: ").strip()
-        if not titulo:
-            titulo = "Sem título informado."
-        descricao = input("Descrição do problema: ").strip()
+        # Descrição
+        descricao = input("\nDescrição do problema: ").strip()
         if not descricao:
             descricao = "Sem descrição informada."
 
@@ -147,12 +138,11 @@ def abrir_chamado():
             except ValueError:
                 print("Digite apenas números!")
 
-        # Resumo 
+        # Resumo
         print("\n" + "=" * 42)
         print("           RESUMO DO CHAMADO")
         print("=" * 42)
         print(f"  Usuário......: {usuarios[usuario_id]}")
-        print(f"  Título.......: {titulo}")
         print(f"  Descrição....: {descricao}")
         print(f"  Categoria....: {categorias[categoria_id]}")
         print(f"  Urgência.....: {urgencia}  |  Impacto: {impacto}")
@@ -169,10 +159,10 @@ def abrir_chamado():
         agora = datetime.now()
         cursor.execute(
             """INSERT INTO tickets
-               (titulo, descricao, categoria_id, prioridade_id, status_id,
+               (descricao, categoria_id, prioridade_id, status_id,
                 usuario_abertura_id, data_abertura, data_atualizacao)
-               VALUES (%s, %s, %s, %s, %s, %s, %s, %s)""",
-            (titulo, descricao, categoria_id, prioridade_id, status_id,
+               VALUES (%s, %s, %s, %s, %s, %s, %s)""",
+            (descricao, categoria_id, prioridade_id, status_id,
              usuario_id, agora, agora)
         )
         ticket_id = cursor.lastrowid
@@ -195,9 +185,7 @@ def abrir_chamado():
         cursor.close()
         conn.close()
 
- 
 # PROGRAMA PRINCIPAL
- 
 
 def main():
     print("\n" + "=" * 42)
