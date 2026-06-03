@@ -279,6 +279,196 @@
   6. Consulte o histórico para rastreabilidade (opção 5)
   7. Monitore as estatísticas periodicamente (opção 6)
 
+Classificação Automática de Prioridade
+Objetivo:
+O sistema realiza a classificação automática da prioridade dos chamados com o objetivo de auxiliar a organização e o atendimento das solicitações registradas.
+
+A prioridade é calculada automaticamente no momento da abertura do chamado, utilizando dois fatores informados pelo usuário:
+
+Urgência (valor de 1 a 3)
+Impacto (valor de 1 a 3)
+Regra de Classificação
+
+A prioridade é definida por uma regra determinística baseada na soma dos valores de urgência e impacto.
+
+Fórmula
+
+Prioridade = Urgência + Impacto
+
+Tabela de Classificação
+Soma (Urgência + Impacto)	Prioridade
+Até 2	Baixa
+De 3 a 4	Média
+De 5 a 6	Alta
+Exemplos
+Urgência	Impacto	Soma	Prioridade
+1	1 =	2	Baixa
+1	2 =	3	Média
+2	2 =	4	Média
+2	3 =	5	Alta
+3	3 =	6	Alta
+Implementação
+
+A classificação é realizada automaticamente pela função calcular_prioridade() durante o registro do chamado.
+
+def calcular_prioridade(urgencia, impacto):
+    soma = urgencia + impacto
+
+    if soma <= 2:
+        return "Baixa"
+    elif soma <= 4:
+        return "Média"
+    else:
+        return "Alta"
+
+Após o cálculo, o sistema busca o identificador correspondente na tabela prioridades e grava a prioridade no banco de dados juntamente com os demais dados do chamado.
+
+Persistência dos Dados
+
+A prioridade calculada é armazenada na tabela tickets por meio do campo prioridade_id, que referencia a tabela prioridades.
+
+Dessa forma, a prioridade permanece registrada para consultas futuras, relatórios e acompanhamento dos chamados.
+
+Persistência de Dados em MySQL
+Objetivo
+
+Garantir que todas as informações cadastradas no sistema permaneçam armazenadas mesmo após o encerramento ou reinicialização da aplicação.
+
+Para isso, foi utilizado o banco de dados MySQL como mecanismo de persistência, permitindo que usuários, chamados, categorias, prioridades, status e histórico de movimentações sejam armazenados de forma permanente.
+
+Modelagem de Dados
+
+O sistema foi modelado utilizando múltiplas entidades relacionadas entre si por meio de chaves estrangeiras, garantindo integridade e consistência dos dados.
+
+Entidades Principais
+Usuários
+
+Armazena os dados dos usuários responsáveis pela abertura e atendimento dos chamados.
+
+Atributos:
+
+id (PK)
+nome
+email
+empresa
+Categorias
+
+Armazena os tipos de chamados disponíveis.
+
+Atributos:
+
+id (PK)
+nome
+Prioridades
+
+Armazena os níveis de prioridade utilizados pelo sistema.
+
+Atributos:
+
+id (PK)
+nivel
+Status
+
+Armazena os possíveis estados de um chamado.
+
+Atributos:
+
+id (PK)
+nome
+Tickets (Chamados)
+
+Armazena os chamados registrados no sistema.
+
+Atributos:
+
+id (PK)
+titulo
+descricao
+categoria_id (FK)
+prioridade_id (FK)
+status_id (FK)
+usuario_abertura_id (FK)
+usuario_responsavel_id (FK)
+data_abertura
+data_atualizacao
+data_fechamento
+Histórico de Tickets
+
+Armazena o histórico de alterações dos chamados.
+
+Atributos:
+
+id (PK)
+ticket_id (FK)
+status_id (FK)
+comentario
+data
+Relacionamentos
+Um usuário pode abrir vários chamados.
+Um usuário pode ser responsável por vários chamados.
+Uma categoria pode estar associada a vários chamados.
+Uma prioridade pode estar associada a vários chamados.
+Um status pode estar associado a vários chamados.
+Um chamado pode possuir vários registros de histórico.
+
+Representação simplificada:
+
+Usuarios (1) ---- (N) Tickets
+
+Categorias (1) ---- (N) Tickets
+
+Prioridades (1) ---- (N) Tickets
+
+Status (1) ---- (N) Tickets
+
+Tickets (1) ---- (N) Ticket_Historico
+
+Status (1) ---- (N) Ticket_Historico
+
+Integridade Referencial
+
+A integridade referencial é garantida por meio de chaves estrangeiras (FOREIGN KEY).
+
+Exemplos:
+
+categoria_id referencia categorias(id)
+prioridade_id referencia prioridades(id)
+status_id referencia status(id)
+usuario_abertura_id referencia usuarios(id)
+usuario_responsavel_id referencia usuarios(id)
+ticket_id referencia tickets(id)
+
+Essas restrições impedem a existência de registros órfãos e garantem a consistência dos relacionamentos entre as tabelas.
+
+Persistência dos Dados
+
+Todos os dados cadastrados são gravados diretamente no banco MySQL.
+
+Dessa forma:
+
+Usuários permanecem cadastrados após reiniciar o sistema.
+Chamados permanecem armazenados após reiniciar o sistema.
+Histórico dos chamados permanece disponível para consulta.
+Categorias, prioridades e status permanecem registrados no banco.
+
+Como as informações ficam armazenadas no MySQL, elas não são perdidas quando a aplicação é encerrada.
+
+Script de Banco de Dados
+
+O projeto fornece um script SQL (DDL) contendo:
+
+Criação das tabelas.
+Definição das chaves primárias.
+Definição das chaves estrangeiras.
+Definição dos relacionamentos.
+Dados iniciais para categorias, prioridades e status.
+
+A execução do script cria toda a estrutura necessária para funcionamento do sistema.
+
+
+
+
+
   OBSERVAÇÕES IMPORTANTES
 
 
