@@ -11,9 +11,9 @@ def obtemConexao(servidor, usuario, senha, bd):
     )
 
 SERVIDOR = 'BD-ACD'
-USUARIO  = "BD24022611"
-SENHA    = "Ldxti2"
-BD       = "BD24022611"
+USUARIO = "BD24022611"
+SENHA = "Ldxti2"
+BD = "BD24022611"
 
 # FUNÇÕES AUXILIARES DE ENTRADA
 
