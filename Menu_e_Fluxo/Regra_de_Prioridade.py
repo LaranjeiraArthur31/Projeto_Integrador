@@ -95,7 +95,7 @@ def abrir_chamado():
             return
         categoria_id = escolher_opcao_menu(categorias, "Tipo do problema")
 
-        # Urgência e impacto → calcula nível de prioridade
+        # Urgência e impacto -> calcula nível de prioridade
         urgencia = escolher_urgencia()
         impacto  = escolher_impacto()
         nivel    = calcular_prioridade(urgencia, impacto)
